@@ -3,36 +3,19 @@ pipeline {
 
     environment {
         ANSIBLE_HOST_KEY_CHECKING = 'False'
-        SUDO_PASS = credentials('your-sudo-password-id') // Add a Jenkins secret
     }
 
     stages {
-        stage('Install Ansible on Jenkins EC2') {
-            steps {
-                sh '''
-                    echo "Installing Ansible if not present..."
-                    if ! command -v ansible >/dev/null 2>&1; then
-                      echo "$SUDO_PASS" | sudo -S apt update
-                      echo "$SUDO_PASS" | sudo -S apt install -y software-properties-common
-                      echo "$SUDO_PASS" | sudo -S add-apt-repository --yes --update ppa:ansible/ansible
-                      echo "$SUDO_PASS" | sudo -S apt install -y ansible
-                    else
-                      echo "Ansible already installed."
-                    fi
-                '''
-            }
-        }
-
-        stage('Clone Repository') {
+        stage('Clone Repo') {
             steps {
                 git branch: 'main', url: 'https://github.com/devkelzs/aws-devops-pipeline.git'
             }
         }
 
-        stage('Deploy to Web Server') {
+        stage('Run Ansible Playbook from Local Jenkins') {
             steps {
                 sh '''
-                    echo "Running Ansible Playbook..."
+                    echo "Running Ansible playbook from local WSL machine..."
                     ansible-playbook -i ansible/inventory.ini ansible/playbook.yml
                 '''
             }
@@ -40,11 +23,11 @@ pipeline {
     }
 
     post {
-        failure {
-            echo "Deployment failed. Please check the logs."
-        }
         success {
-            echo "Deployment successful!"
+            echo '✅ Deployment successful!'
+        }
+        failure {
+            echo '❌ Deployment failed. Check SSH, inventory, or playbook.'
         }
     }
 }
