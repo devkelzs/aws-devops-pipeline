@@ -3,7 +3,8 @@ pipeline {
     stages {
         stage('Clone Code') {
             steps {
-                git 'https://github.com/devkelzs/aws-devops-pipeline.git', branch: 'main'
+                git url: 'https://github.com/devkelzs/aws-devops-pipeline.git', branch: 'main'
+
             }
         }
 
