@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         ANSIBLE_HOST_KEY_CHECKING = 'False'
+        SUDO_PASS = credentials('your-sudo-password-id') // Add a Jenkins secret
     }
 
     stages {
@@ -11,10 +12,10 @@ pipeline {
                 sh '''
                     echo "Installing Ansible if not present..."
                     if ! command -v ansible >/dev/null 2>&1; then
-                      sudo apt update
-                      sudo apt install -y software-properties-common
-                      sudo add-apt-repository --yes --update ppa:ansible/ansible
-                      sudo apt install -y ansible
+                      echo "$SUDO_PASS" | sudo -S apt update
+                      echo "$SUDO_PASS" | sudo -S apt install -y software-properties-common
+                      echo "$SUDO_PASS" | sudo -S add-apt-repository --yes --update ppa:ansible/ansible
+                      echo "$SUDO_PASS" | sudo -S apt install -y ansible
                     else
                       echo "Ansible already installed."
                     fi
