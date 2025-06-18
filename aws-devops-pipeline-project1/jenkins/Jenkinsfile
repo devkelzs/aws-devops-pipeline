@@ -16,7 +16,8 @@ pipeline {
             steps {
                 sh '''
                     echo "Running Ansible playbook from local WSL machine..."
-                    ansible-playbook -i ansible/inventory.ini ansible/playbook.yml
+                    cd aws-devops-pipeline-project1/ansible
+                    ansible-playbook -i inventory.ini playbook.yml
                 '''
             }
         }
@@ -30,4 +31,6 @@ pipeline {
             echo '❌ Deployment failed. Check SSH, inventory, or playbook.'
         }
     }
+}
+
 }
