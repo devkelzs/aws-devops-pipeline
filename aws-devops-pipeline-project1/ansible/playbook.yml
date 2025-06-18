@@ -1,0 +1,37 @@
+---
+- name: Configure Web Server on Ubuntu
+  hosts: web
+  become: yes
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Install Nginx
+      apt:
+        name: nginx
+        state: present
+
+    - name: Start and enable Nginx
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+
+    - name: Remove default Nginx index page
+      file:
+        path: /var/www/html/index.nginx-debian.html
+        state: absent
+
+    - name: Copy custom index.html to web root
+      copy:
+        src: "{{ playbook_dir }}/../app/index.html"
+        dest: /var/www/html/index.html
+        owner: www-data
+        group: www-data
+        mode: '0644'
+
+    - name: Restart Nginx to apply changes
+      service:
+        name: nginx
+        state: restarted
