@@ -1,17 +1,49 @@
 pipeline {
     agent any
-    stages {
-        stage('Clone Code') {
-            steps {
-                git url: 'https://github.com/devkelzs/aws-devops-pipeline.git', branch: 'main'
 
+    environment {
+        ANSIBLE_HOST_KEY_CHECKING = 'False'
+    }
+
+    stages {
+        stage('Install Ansible on Jenkins EC2') {
+            steps {
+                sh '''
+                    echo "Installing Ansible if not present..."
+                    if ! command -v ansible >/dev/null 2>&1; then
+                      sudo apt update
+                      sudo apt install -y software-properties-common
+                      sudo add-apt-repository --yes --update ppa:ansible/ansible
+                      sudo apt install -y ansible
+                    else
+                      echo "Ansible already installed."
+                    fi
+                '''
+            }
+        }
+
+        stage('Clone Repository') {
+            steps {
+                git branch: 'main', url: 'https://github.com/devkelzs/aws-devops-pipeline.git'
             }
         }
 
         stage('Deploy to Web Server') {
             steps {
-                sh 'ansible-playbook -i ansible/inventory.ini ansible/playbook.yml'
+                sh '''
+                    echo "Running Ansible Playbook..."
+                    ansible-playbook -i ansible/inventory.ini ansible/playbook.yml
+                '''
             }
+        }
+    }
+
+    post {
+        failure {
+            echo "Deployment failed. Please check the logs."
+        }
+        success {
+            echo "Deployment successful!"
         }
     }
 }
