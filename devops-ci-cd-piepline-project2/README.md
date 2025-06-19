@@ -187,7 +187,7 @@ spec:
 
 | Interface  | Screenshot                                    |
 | ---------- | --------------------------------------------- |
-| Argo CD    | ![Argo](images/Screenshot%20(146).pngg)    |
+| Argo CD    | ![Argo](images/Screenshot%20(146).png)    |
 | Prometheus | ![Prometheus](images/Screenshot%20(150).png)  |
 | Grafana    | ![Grafana](images/Screenshot%20(149).png) |
 
