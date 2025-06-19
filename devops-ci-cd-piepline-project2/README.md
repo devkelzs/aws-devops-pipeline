@@ -20,7 +20,7 @@ A **complete, production-style DevOps project** integrating **Terraform, Ansible
 
 ## 🧠 Architecture Overview
 
-(images/1717415278670.jpg)
+![Architecture](images/1717415278670%20.jpg)
 
 ### 🔹 Breakdown:
 - **Terraform** provisions all AWS infrastructure (EC2, Security Groups, etc.)
@@ -187,9 +187,9 @@ spec:
 
 | Interface  | Screenshot                                    |
 | ---------- | --------------------------------------------- |
-| Argo CD    | ![Argo](images/Screenshot (146).pngg)    |
-| Prometheus | ![Prometheus](images/Screenshot (150).png)  |
-| Grafana    | ![Grafana](images/Screenshot (149).png) |
+| Argo CD    | ![Argo](images/Screenshot%20(146).pngg)    |
+| Prometheus | ![Prometheus](images/Screenshot%20(150).png)  |
+| Grafana    | ![Grafana](images/Screenshot%20(149).png) |
 
 
 ---
