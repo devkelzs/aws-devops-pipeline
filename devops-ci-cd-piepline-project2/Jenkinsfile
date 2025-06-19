@@ -1,0 +1,48 @@
+pipeline {
+    agent any
+
+    environment {
+        DOCKER_IMAGE = 'yourdockerhubusername/flask-app:latest'
+    }
+
+    stages {
+        stage('Clone repo') {
+            steps {
+                git 'https://github.com/yourusername/devops-gitops-project.git'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                dir('app') {
+                    script {
+                        sh "docker build -t $DOCKER_IMAGE ."
+                    }
+                }
+            }
+        }
+
+        stage('Push to Docker Hub') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                    sh """
+                    echo "$PASSWORD" | docker login -u "$USERNAME" --password-stdin
+                    docker push $DOCKER_IMAGE
+                    """
+                }
+            }
+        }
+
+        stage('Git commit K8s YAML') {
+            steps {
+                sh '''
+                git config --global user.email "you@example.com"
+                git config --global user.name "Your Name"
+                git add kubernetes/
+                git commit -m "Updated K8s YAML for new image" || echo "No changes"
+                git push
+                '''
+            }
+        }
+    }
+}
