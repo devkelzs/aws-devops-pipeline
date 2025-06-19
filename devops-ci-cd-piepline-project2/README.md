@@ -20,7 +20,7 @@ A **complete, production-style DevOps project** integrating **Terraform, Ansible
 
 ## 🧠 Architecture Overview
 
-![Architecture Diagram](images/1717415278670.jpg)
+(images/1717415278670.jpg)
 
 ### 🔹 Breakdown:
 - **Terraform** provisions all AWS infrastructure (EC2, Security Groups, etc.)
