@@ -48,11 +48,15 @@ pipeline {
             steps {
                 dir('devops-ci-cd-piepline-project2') {
                     sh '''
-                    git config --global user.email "you@example.com"
-                    git config --global user.name "Your Name"
-                    git add kubernetes/
-                    git commit -m "Updated K8s YAML for new image" || echo "No changes"
-                    git push
+                    git config --global user.email "nkwainkelly8@gmail.com"
+                    git config --global user.name "Devkelzs"
+                    if [ -d "kubernetes" ]; then
+                        git add kubernetes/
+                        git commit -m "Updated K8s YAML for new image" || echo "No changes"
+                        git push --set-upstream origin main
+                    else
+                        echo "No kubernetes folder found, skipping commit."
+                    fi
                     '''
                 }
             }
