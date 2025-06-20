@@ -82,14 +82,19 @@ project-root/
 
 ### ✅ Step 1: Provision Infrastructure with Terraform
 
-```
+
 cd terraform
+
 terraform init
-terraform fmt 
+
+terraform fmt
+
 terraform validate
-terraform plan 
+
+terraform plan
+
 terraform apply
-````
+
 
 Resources Created:
 
@@ -102,11 +107,13 @@ Resources Created:
 
 ### ✅ Step 2: Configure Servers with Ansible
 
-```bash
+
 cd ansible
+
 ansible-playbook playbooks/install-docker.yml
+
 ansible-playbook playbooks/setup-jenkins.yml
-```
+
 
 Tasks Performed:
 
@@ -123,11 +130,14 @@ Tasks Performed:
 
 ### ✅ Step 4: Deploy to Kubernetes via Argo CD (GitOps)
 
-```
+
 kubectl create namespace argocd
+
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+
 kubectl port-forward svc/argocd-server -n argocd 8090:443
-```
+
+
 
 Access Argo CD UI at:
 **[https://localhost:8090](https://localhost:8090)**
