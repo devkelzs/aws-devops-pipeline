@@ -34,7 +34,6 @@ A **complete, production-style DevOps project** integrating **Terraform, Ansible
 
 ## 📁 Folder Structure
 
-```
 
 project-root/
 
