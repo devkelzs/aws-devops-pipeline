@@ -82,7 +82,7 @@ project-root/
 
 ### ✅ Step 1: Provision Infrastructure with Terraform
 
-```bash
+```
 cd terraform
 terraform init
 terraform fmt 
@@ -123,7 +123,7 @@ Tasks Performed:
 
 ### ✅ Step 4: Deploy to Kubernetes via Argo CD (GitOps)
 
-```bash
+```
 kubectl create namespace argocd
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 kubectl port-forward svc/argocd-server -n argocd 8090:443
@@ -143,14 +143,14 @@ Create an Argo CD application pointing to the GitHub repo folder `kubernetes/`.
 
 Install with Helm:
 
-```bash
+```
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 helm install prometheus prometheus-community/kube-prometheus-stack -n monitoring --create-namespace
 ```
 
 Forward ports:
 
-```bash
+```
 kubectl port-forward svc/prometheus-kube-prometheus-prometheus -n monitoring 9090
 kubectl port-forward svc/prometheus-grafana -n monitoring 3000:80
 ```
