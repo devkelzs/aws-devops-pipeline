@@ -108,7 +108,7 @@ The Jenkins pipeline performs:
 
 ---
 
-![Demo Screenshot](images/Screenshot 20%(154).png)
+![Demo Screenshot](images/Screenshot(154).png)
 
 
 ## How to Run
