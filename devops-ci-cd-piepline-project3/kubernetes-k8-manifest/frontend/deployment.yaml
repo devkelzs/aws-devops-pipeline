@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: kellynkwain/kellynkwain-ecommerce-frontend:latest
+          image: kellynkwain/kellynkwain-ecommerce-frontend
           ports:
             - containerPort: 3000
           env:

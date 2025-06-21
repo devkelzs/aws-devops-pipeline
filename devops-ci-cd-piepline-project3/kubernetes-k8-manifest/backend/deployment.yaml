@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
         - name: backend
-          image: kellynkwain/kellynkwain-ecommerce-backend:latest
+          image: kellynkwain/kellynkwain-ecommerce-backend
           ports:
             - containerPort: 5000
