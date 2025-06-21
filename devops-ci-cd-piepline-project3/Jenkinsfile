@@ -20,7 +20,7 @@ pipeline {
                 dir('devops-ci-cd-piepline-project3/app/frontend') {
                     sh '''
                     npm install
-                    npx eslint . --ignore-path .eslintignore || true
+                    npx eslint . || true
                     '''
                 }
             }
@@ -31,7 +31,7 @@ pipeline {
                 dir('devops-ci-cd-piepline-project3/app/backend') {
                     sh '''
                     npm install
-                    npx eslint . --ignore-path .eslintignore || true
+                    npx eslint . || true
                     '''
                 }
             }
@@ -81,17 +81,17 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'github', usernameVariable: 'GIT_USER', passwordVariable: 'GIT_PASS')]) {
                     sh '''
                     # Update image in frontend deployment
-                    sed -i "s|image: .*kellynkwain-ecommerce-frontend.*|image: $FRONTEND_IMAGE|" kubernetes-k8-manifest/frontend/deployment.yaml
+                    sed -i "s|image: .*kellynkwain-ecommerce-frontend.*|image: $FRONTEND_IMAGE|" devops-ci-cd-piepline-project3/kubernetes-k8-manifest/frontend/deployment.yaml
 
                     # Update image in backend deployment
-                    sed -i "s|image: .*kellynkwain-ecommerce-backend.*|image: $BACKEND_IMAGE|" kubernetes-k8-manifest/backend/deployment.yaml
+                    sed -i "s|image: .*kellynkwain-ecommerce-backend.*|image: $BACKEND_IMAGE|" devops-ci-cd-piepline-project3/kubernetes-k8-manifest/backend/deployment.yaml
 
                     # Configure Git user
                     git config --global user.email "nkwainkelly8@gmail.com"
                     git config --global user.name "devkelzs"
 
                     # Commit and push updated manifests
-                    git add kubernetes-k8-manifest/frontend/deployment.yaml kubernetes-k8-manifest/backend/deployment.yaml
+                    git add devops-ci-cd-piepline-project3/kubernetes-k8-manifest/frontend/deployment.yaml devops-ci-cd-piepline-project3/kubernetes-k8-manifest/backend/deployment.yaml
                     git commit -m "🔁 Updated image tags from Jenkins pipeline"
                     git push https://$GIT_USER:$GIT_PASS@github.com/devkelzs/aws-devops-pipeline.git
                     '''
