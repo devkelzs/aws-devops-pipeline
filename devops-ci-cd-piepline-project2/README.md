@@ -144,7 +144,7 @@ Access Argo CD UI at:
 Create an Argo CD application pointing to the GitHub repo folder `kubernetes/`.
 
 **Screenshot Example:**
-![Argo CD](images/Screenshot%20(146).png)
+![Argo CD](images/Screenshot (154).png)
 
 ---
 
