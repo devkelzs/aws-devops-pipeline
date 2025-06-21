@@ -2,16 +2,49 @@ pipeline {
     agent any
 
     environment {
-        DOCKERHUB_CREDENTIALS = credentials('dockerhub') // Jenkins credential ID
-        DOCKERHUB_USER = "yourusername"
-        FRONTEND_IMAGE = "${DOCKERHUB_USER}/ecommerce-frontend"
-        BACKEND_IMAGE = "${DOCKERHUB_USER}/ecommerce-backend"
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub') 
+        DOCKERHUB_USER = "kellynkwain"
+        FRONTEND_IMAGE = "${DOCKERHUB_USER}/kellynkwain-ecommerce-frontend"
+        BACKEND_IMAGE = "${DOCKERHUB_USER}/kellynkwain-ecommerce-backend"
     }
 
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/yourusername/ecommerce-devops-project.git'
+                git branch: 'main', url: 'https://github.com/devkelzs/aws-devops-pipeline.git'
+            }
+        }
+
+        stage('Frontend Lint') {
+            steps {
+                dir('app/frontend') {
+                    sh '''
+                    npm install
+                    npx eslint . --ignore-path .eslintignore
+                    '''
+                }
+            }
+        }
+
+        stage('Backend Lint') {
+            steps {
+                dir('app/backend') {
+                    sh '''
+                    npm install
+                    npx eslint . --ignore-path .eslintignore
+                    '''
+                }
+            }
+        }
+
+        stage('Backend Test') {
+            steps {
+                dir('app/backend') {
+                    sh '''
+                    npm install
+                    npm test
+                    '''
+                }
             }
         }
 
@@ -35,9 +68,9 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
                     sh '''
-                        echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
-                        docker push $FRONTEND_IMAGE
-                        docker push $BACKEND_IMAGE
+                    echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+                    docker push $FRONTEND_IMAGE
+                    docker push $BACKEND_IMAGE
                     '''
                 }
             }
@@ -46,10 +79,10 @@ pipeline {
 
     post {
         success {
-            echo "✅ Docker images pushed to Docker Hub successfully!"
+            echo "✅ CI/CD pipeline succeeded! Code is clean, tested, and deployed."
         }
         failure {
-            echo "❌ Build or push failed."
+            echo "❌ CI/CD pipeline failed. Check stage logs for more info."
         }
     }
 }
