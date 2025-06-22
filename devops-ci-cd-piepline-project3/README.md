@@ -161,7 +161,8 @@ The Jenkins pipeline performs:
 
 ## Demo
 
-![Demo video](https://youtu.be/nEjO0pGZHCE)
+[![Demo Video](https://img.youtube.com/vi/nEjO0pGZHCE/0.jpg)](https://youtu.be/nEjO0pGZHCE)
+
 
 ---
 
