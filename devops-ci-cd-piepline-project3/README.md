@@ -169,7 +169,7 @@ The Jenkins pipeline performs:
 ## Contact
 
 Developed by Kelly Nkwain
-Email: [nkwainkelly872@gmail.com](mailto:kellynkwain72@gmail.com)
+Email: [nkwainkelly8@gmail.com](mailto:nkwainkelly8@gmail.com)
 GitHub: [https://github.com/devkelzs](https://github.com/devkelzs)
 
 ---
