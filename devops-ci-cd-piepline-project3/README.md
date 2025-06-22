@@ -161,7 +161,7 @@ The Jenkins pipeline performs:
 
 ## Demo
 
-\[Add your demo link here — e.g., a public URL to frontend app or demo video]
+https://youtu.be/nEjO0pGZHCE
 
 ---
 
